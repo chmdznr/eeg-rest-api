@@ -1,0 +1,14 @@
+[Unit]
+Description=EEG REST API Service
+After=network.target
+
+[Service]
+ExecStart=/home/eeg-admin/eeg-rest-api/app.exe
+WorkingDirectory=/home/eeg-admin/eeg-rest-api
+User=eeg-admin
+Restart=always
+RestartSec=10
+Environment=PORT=8015
+
+[Install]
+WantedBy=multi-user.target

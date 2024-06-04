@@ -62,6 +62,14 @@ digunakan untuk menambahkan data EEG bayi baru. Request body berupa JSON dengan 
 
 Perhatikan aturan untuk `trial_code` ya.
 
+### POST `/api/newborn-cv`
+digunakan untuk menambahkan data citra/video dari bayi. Perhatikan bahwa khusus untuk endpoint ini, request body berupa `form-data` (`Content-Type` header harusnya berupa `multipart/form-data`). Ada 3 field yang harus diisi:
+- `trial_code` merupakan kode uji coba.
+- `file` merupakan file citra/video bayi.
+- `data_type` merupakan tipe file yang diupload. Ada 2 tipe file yang bisa diupload, yaitu `image` dan `video`.
+ 
+Untuk `trial_code`, harus sama dengan kode uji coba yang ada di inputan pada endpoint `/api/newborn-data`. Untuk `notes` bisa diisi dengan catatan tambahan jika diperlukan.
+
 ## Ibu Hamil
 Endpoint-endpoint yang berhubungan dengan data ibu hamil
 ### POST `/api/pregnant-data`

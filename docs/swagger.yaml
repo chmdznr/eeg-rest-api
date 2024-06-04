@@ -1,5 +1,45 @@
-basePath: /api
+basePath: /rest/api
 definitions:
+  models.NewbornData:
+    properties:
+      accel_x:
+        type: number
+      accel_y:
+        type: number
+      accel_z:
+        type: number
+      created_at:
+        type: string
+      deleted_at:
+        type: string
+      gravidity:
+        type: integer
+      id:
+        type: integer
+      mother_age:
+        type: integer
+      mother_name:
+        type: string
+      name:
+        type: string
+      parity:
+        type: integer
+      spo_2:
+        type: integer
+      thermal:
+        type: number
+      trial_code:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  reqresp.ErrorResponse:
+    properties:
+      message:
+        type: string
+      status:
+        type: string
+    type: object
   reqresp.SuccessResponse:
     properties:
       data: {}
@@ -8,6 +48,7 @@ definitions:
       status:
         type: string
     type: object
+host: eeg-admin.msvc.app
 info:
   contact:
     email: pai.joe@wedibojone.com
@@ -19,6 +60,36 @@ info:
   title: API untuk data EEG
   version: 2024.06.04.1
 paths:
+  /newborn-data:
+    post:
+      consumes:
+      - application/json
+      description: Create a new record in the newborn_datas table
+      parameters:
+      - description: Data Sensor pada bayi
+        in: body
+        name: newbornData
+        required: true
+        schema:
+          $ref: '#/definitions/models.NewbornData'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/reqresp.SuccessResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/reqresp.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/reqresp.ErrorResponse'
+      summary: Create a new record in the newborn_datas table
+      tags:
+      - Bayi
   /ping:
     get:
       consumes:

@@ -15,7 +15,7 @@ type NewbornData struct {
 	AccelY     float64    `json:"accel_y"`
 	AccelZ     float64    `json:"accel_z"`
 	Thermal    float64    `json:"thermal"`
-	Spo2       int        `json:"spo_2"`
+	Spo2       int        `json:"spo_2" gorm:"column:spo_2"`
 	CreatedAt  time.Time  `json:"created_at"`
 	UpdatedAt  time.Time  `json:"updated_at"`
 	DeletedAt  *time.Time `json:"deleted_at"`

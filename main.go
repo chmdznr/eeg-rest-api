@@ -30,7 +30,8 @@ import (
 // @license.name Apache 2.0
 // @license.url http://www.apache.org/licenses/LICENSE-2.0.html
 
-// @BasePath /api
+// @Host eeg-admin.msvc.app
+// @BasePath /rest/api
 func main() {
 
 	// load .env

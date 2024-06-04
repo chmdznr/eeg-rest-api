@@ -22,6 +22,52 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
+        "/newborn-data": {
+            "post": {
+                "description": "Create a new record in the newborn_datas table",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Bayi"
+                ],
+                "summary": "Create a new record in the newborn_datas table",
+                "parameters": [
+                    {
+                        "description": "Data Sensor pada bayi",
+                        "name": "newbornData",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.NewbornData"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/reqresp.SuccessResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/reqresp.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/reqresp.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
         "/ping": {
             "get": {
                 "description": "Get ping message to check if server is alive",
@@ -47,6 +93,67 @@ const docTemplate = `{
         }
     },
     "definitions": {
+        "models.NewbornData": {
+            "type": "object",
+            "properties": {
+                "accel_x": {
+                    "type": "number"
+                },
+                "accel_y": {
+                    "type": "number"
+                },
+                "accel_z": {
+                    "type": "number"
+                },
+                "created_at": {
+                    "type": "string"
+                },
+                "deleted_at": {
+                    "type": "string"
+                },
+                "gravidity": {
+                    "type": "integer"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "mother_age": {
+                    "type": "integer"
+                },
+                "mother_name": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "parity": {
+                    "type": "integer"
+                },
+                "spo_2": {
+                    "type": "integer"
+                },
+                "thermal": {
+                    "type": "number"
+                },
+                "trial_code": {
+                    "type": "string"
+                },
+                "updated_at": {
+                    "type": "string"
+                }
+            }
+        },
+        "reqresp.ErrorResponse": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "string"
+                }
+            }
+        },
         "reqresp.SuccessResponse": {
             "type": "object",
             "properties": {
@@ -65,8 +172,8 @@ const docTemplate = `{
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = &swag.Spec{
 	Version:          "2024.06.04.1",
-	Host:             "",
-	BasePath:         "/api",
+	Host:             "eeg-admin.msvc.app",
+	BasePath:         "/rest/api",
 	Schemes:          []string{},
 	Title:            "API untuk data EEG",
 	Description:      "API untuk Data EEg",

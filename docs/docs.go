@@ -136,6 +136,52 @@ const docTemplate = `{
                     }
                 }
             }
+        },
+        "/pregnant-data": {
+            "post": {
+                "description": "Create a new record in the pregnant_datas table",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Ibu hamil"
+                ],
+                "summary": "Create a new record in the pregnant_datas table",
+                "parameters": [
+                    {
+                        "description": "Data Sensor pada ibu hamil",
+                        "name": "pregnantData",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.PregnantData"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/reqresp.SuccessResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/reqresp.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/reqresp.ErrorResponse"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -215,6 +261,56 @@ const docTemplate = `{
                 }
             }
         },
+        "models.PregnantData": {
+            "type": "object",
+            "properties": {
+                "age": {
+                    "type": "integer"
+                },
+                "created_at": {
+                    "type": "string"
+                },
+                "deleted_at": {
+                    "type": "string"
+                },
+                "diastole": {
+                    "type": "integer"
+                },
+                "fetal_hr": {
+                    "type": "integer"
+                },
+                "gravidity": {
+                    "type": "integer"
+                },
+                "hr": {
+                    "type": "integer"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "parity": {
+                    "type": "integer"
+                },
+                "resp_count": {
+                    "type": "integer"
+                },
+                "sistole": {
+                    "type": "integer"
+                },
+                "spo_2": {
+                    "type": "integer"
+                },
+                "trial_code": {
+                    "type": "string"
+                },
+                "updated_at": {
+                    "type": "string"
+                }
+            }
+        },
         "reqresp.ErrorResponse": {
             "type": "object",
             "properties": {
@@ -243,12 +339,12 @@ const docTemplate = `{
 
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = &swag.Spec{
-	Version:          "2024.06.04.3",
+	Version:          "2024.06.04.4",
 	Host:             "eeg-admin.msvc.app",
 	BasePath:         "/rest/api",
 	Schemes:          []string{},
 	Title:            "API untuk data EEG",
-	Description:      "API untuk Data EEg",
+	Description:      "API untuk Data EEG",
 	InfoInstanceName: "swagger",
 	SwaggerTemplate:  docTemplate,
 	LeftDelim:        "{{",

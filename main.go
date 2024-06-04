@@ -21,8 +21,8 @@ import (
 )
 
 // @title API untuk data EEG
-// @version 2024.06.04.3
-// @description API untuk Data EEg
+// @version 2024.06.04.4
+// @description API untuk Data EEG
 
 // @contact.name Pai Joe
 // @contact.email pai.joe@wedibojone.com

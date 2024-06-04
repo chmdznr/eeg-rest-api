@@ -1,7 +1,7 @@
 {
     "swagger": "2.0",
     "info": {
-        "description": "API untuk Data EEg",
+        "description": "API untuk Data EEG",
         "title": "API untuk data EEG",
         "contact": {
             "name": "Pai Joe",
@@ -11,7 +11,7 @@
             "name": "Apache 2.0",
             "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
         },
-        "version": "2024.06.04.3"
+        "version": "2024.06.04.4"
     },
     "host": "eeg-admin.msvc.app",
     "basePath": "/rest/api",
@@ -130,6 +130,52 @@
                     }
                 }
             }
+        },
+        "/pregnant-data": {
+            "post": {
+                "description": "Create a new record in the pregnant_datas table",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Ibu hamil"
+                ],
+                "summary": "Create a new record in the pregnant_datas table",
+                "parameters": [
+                    {
+                        "description": "Data Sensor pada ibu hamil",
+                        "name": "pregnantData",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.PregnantData"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/reqresp.SuccessResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/reqresp.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/reqresp.ErrorResponse"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -206,6 +252,56 @@
                 },
                 "value": {
                     "type": "number"
+                }
+            }
+        },
+        "models.PregnantData": {
+            "type": "object",
+            "properties": {
+                "age": {
+                    "type": "integer"
+                },
+                "created_at": {
+                    "type": "string"
+                },
+                "deleted_at": {
+                    "type": "string"
+                },
+                "diastole": {
+                    "type": "integer"
+                },
+                "fetal_hr": {
+                    "type": "integer"
+                },
+                "gravidity": {
+                    "type": "integer"
+                },
+                "hr": {
+                    "type": "integer"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "parity": {
+                    "type": "integer"
+                },
+                "resp_count": {
+                    "type": "integer"
+                },
+                "sistole": {
+                    "type": "integer"
+                },
+                "spo_2": {
+                    "type": "integer"
+                },
+                "trial_code": {
+                    "type": "string"
+                },
+                "updated_at": {
+                    "type": "string"
                 }
             }
         },

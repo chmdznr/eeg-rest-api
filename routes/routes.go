@@ -13,4 +13,7 @@ func Setup(app *fiber.App) {
 	// Bayi
 	app.Post("/api/newborn-data", controllers.CreateNewbornData)
 	app.Post("/api/newborn-eeg", controllers.CreateNewbornEEG)
+
+	// Ibu hamil
+	app.Post("/api/pregnant-data", controllers.CreatePregnantData)
 }

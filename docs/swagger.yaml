@@ -50,6 +50,39 @@ definitions:
       value:
         type: number
     type: object
+  models.PregnantData:
+    properties:
+      age:
+        type: integer
+      created_at:
+        type: string
+      deleted_at:
+        type: string
+      diastole:
+        type: integer
+      fetal_hr:
+        type: integer
+      gravidity:
+        type: integer
+      hr:
+        type: integer
+      id:
+        type: integer
+      name:
+        type: string
+      parity:
+        type: integer
+      resp_count:
+        type: integer
+      sistole:
+        type: integer
+      spo_2:
+        type: integer
+      trial_code:
+        type: string
+      updated_at:
+        type: string
+    type: object
   reqresp.ErrorResponse:
     properties:
       message:
@@ -70,12 +103,12 @@ info:
   contact:
     email: pai.joe@wedibojone.com
     name: Pai Joe
-  description: API untuk Data EEg
+  description: API untuk Data EEG
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   title: API untuk data EEG
-  version: 2024.06.04.3
+  version: 2024.06.04.4
 paths:
   /newborn-data:
     post:
@@ -152,4 +185,34 @@ paths:
       summary: Get ping message
       tags:
       - Ping
+  /pregnant-data:
+    post:
+      consumes:
+      - application/json
+      description: Create a new record in the pregnant_datas table
+      parameters:
+      - description: Data Sensor pada ibu hamil
+        in: body
+        name: pregnantData
+        required: true
+        schema:
+          $ref: '#/definitions/models.PregnantData'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/reqresp.SuccessResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/reqresp.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/reqresp.ErrorResponse'
+      summary: Create a new record in the pregnant_datas table
+      tags:
+      - Ibu hamil
 swagger: "2.0"

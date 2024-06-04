@@ -22,6 +22,74 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
+        "/newborn-cv": {
+            "post": {
+                "description": "Create a new record in the newborn_cvs table",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Bayi"
+                ],
+                "summary": "Create a new record in the newborn_cvs table",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Trial Code",
+                        "name": "trial_code",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "enum": [
+                            "image",
+                            "video"
+                        ],
+                        "type": "string",
+                        "description": "Data Type (image or video)",
+                        "name": "data_type",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Notes",
+                        "name": "notes",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "file",
+                        "description": "File",
+                        "name": "file",
+                        "in": "formData",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/reqresp.SuccessResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/reqresp.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/reqresp.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
         "/newborn-data": {
             "post": {
                 "description": "Create a new record in the newborn_datas table",
@@ -411,7 +479,7 @@ const docTemplate = `{
 
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = &swag.Spec{
-	Version:          "2024.06.04.5",
+	Version:          "2024.06.05.1",
 	Host:             "eeg-admin.msvc.app",
 	BasePath:         "/rest/api",
 	Schemes:          []string{},

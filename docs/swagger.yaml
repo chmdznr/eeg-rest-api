@@ -33,6 +33,23 @@ definitions:
       updated_at:
         type: string
     type: object
+  models.NewbornEEG:
+    properties:
+      channel:
+        type: string
+      created_at:
+        type: string
+      deleted_at:
+        type: string
+      id:
+        type: integer
+      trial_code:
+        type: string
+      updated_at:
+        type: string
+      value:
+        type: number
+    type: object
   reqresp.ErrorResponse:
     properties:
       message:
@@ -58,7 +75,7 @@ info:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   title: API untuk data EEG
-  version: 2024.06.04.1
+  version: 2024.06.04.3
 paths:
   /newborn-data:
     post:
@@ -88,6 +105,36 @@ paths:
           schema:
             $ref: '#/definitions/reqresp.ErrorResponse'
       summary: Create a new record in the newborn_datas table
+      tags:
+      - Bayi
+  /newborn-eeg:
+    post:
+      consumes:
+      - application/json
+      description: Create a new record in the newborn_eegs table
+      parameters:
+      - description: Data EEG pada bayi
+        in: body
+        name: newbornEEG
+        required: true
+        schema:
+          $ref: '#/definitions/models.NewbornEEG'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/reqresp.SuccessResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/reqresp.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/reqresp.ErrorResponse'
+      summary: Create a new record in the newborn_eegs table
       tags:
       - Bayi
   /ping:

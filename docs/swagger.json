@@ -11,7 +11,7 @@
             "name": "Apache 2.0",
             "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
         },
-        "version": "2024.06.04.1"
+        "version": "2024.06.04.3"
     },
     "host": "eeg-admin.msvc.app",
     "basePath": "/rest/api",
@@ -37,6 +37,52 @@
                         "required": true,
                         "schema": {
                             "$ref": "#/definitions/models.NewbornData"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/reqresp.SuccessResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/reqresp.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/reqresp.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/newborn-eeg": {
+            "post": {
+                "description": "Create a new record in the newborn_eegs table",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Bayi"
+                ],
+                "summary": "Create a new record in the newborn_eegs table",
+                "parameters": [
+                    {
+                        "description": "Data EEG pada bayi",
+                        "name": "newbornEEG",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.NewbornEEG"
                         }
                     }
                 ],
@@ -134,6 +180,32 @@
                 },
                 "updated_at": {
                     "type": "string"
+                }
+            }
+        },
+        "models.NewbornEEG": {
+            "type": "object",
+            "properties": {
+                "channel": {
+                    "type": "string"
+                },
+                "created_at": {
+                    "type": "string"
+                },
+                "deleted_at": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "trial_code": {
+                    "type": "string"
+                },
+                "updated_at": {
+                    "type": "string"
+                },
+                "value": {
+                    "type": "number"
                 }
             }
         },

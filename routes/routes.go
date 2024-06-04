@@ -16,4 +16,5 @@ func Setup(app *fiber.App) {
 
 	// Ibu hamil
 	app.Post("/api/pregnant-data", controllers.CreatePregnantData)
+	app.Post("/api/pregnant-eeg", controllers.CreatePregnantEEG)
 }

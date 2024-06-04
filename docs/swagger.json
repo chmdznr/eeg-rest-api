@@ -11,7 +11,7 @@
             "name": "Apache 2.0",
             "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
         },
-        "version": "2024.06.04.4"
+        "version": "2024.06.04.5"
     },
     "host": "eeg-admin.msvc.app",
     "basePath": "/rest/api",
@@ -176,6 +176,52 @@
                     }
                 }
             }
+        },
+        "/pregnant-eeg": {
+            "post": {
+                "description": "Create a new record in the pregnant_eegs table",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Ibu hamil"
+                ],
+                "summary": "Create a new record in the pregnant_eegs table",
+                "parameters": [
+                    {
+                        "description": "Data EEG pada ibu hamil",
+                        "name": "pregnantEEG",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.PregnantEEG"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/reqresp.SuccessResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/reqresp.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/reqresp.ErrorResponse"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -302,6 +348,32 @@
                 },
                 "updated_at": {
                     "type": "string"
+                }
+            }
+        },
+        "models.PregnantEEG": {
+            "type": "object",
+            "properties": {
+                "channel": {
+                    "type": "string"
+                },
+                "created_at": {
+                    "type": "string"
+                },
+                "deleted_at": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "trial_code": {
+                    "type": "string"
+                },
+                "updated_at": {
+                    "type": "string"
+                },
+                "value": {
+                    "type": "number"
                 }
             }
         },

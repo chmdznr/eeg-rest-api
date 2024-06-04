@@ -182,6 +182,52 @@ const docTemplate = `{
                     }
                 }
             }
+        },
+        "/pregnant-eeg": {
+            "post": {
+                "description": "Create a new record in the pregnant_eegs table",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Ibu hamil"
+                ],
+                "summary": "Create a new record in the pregnant_eegs table",
+                "parameters": [
+                    {
+                        "description": "Data EEG pada ibu hamil",
+                        "name": "pregnantEEG",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.PregnantEEG"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/reqresp.SuccessResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/reqresp.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/reqresp.ErrorResponse"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -311,6 +357,32 @@ const docTemplate = `{
                 }
             }
         },
+        "models.PregnantEEG": {
+            "type": "object",
+            "properties": {
+                "channel": {
+                    "type": "string"
+                },
+                "created_at": {
+                    "type": "string"
+                },
+                "deleted_at": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "trial_code": {
+                    "type": "string"
+                },
+                "updated_at": {
+                    "type": "string"
+                },
+                "value": {
+                    "type": "number"
+                }
+            }
+        },
         "reqresp.ErrorResponse": {
             "type": "object",
             "properties": {
@@ -339,7 +411,7 @@ const docTemplate = `{
 
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = &swag.Spec{
-	Version:          "2024.06.04.4",
+	Version:          "2024.06.04.5",
 	Host:             "eeg-admin.msvc.app",
 	BasePath:         "/rest/api",
 	Schemes:          []string{},

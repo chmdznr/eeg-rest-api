@@ -11,7 +11,7 @@
             "name": "Apache 2.0",
             "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
         },
-        "version": "2024.06.05.1"
+        "version": "2024.06.06.1"
     },
     "host": "eeg-admin.msvc.app",
     "basePath": "/rest/api",
@@ -327,6 +327,9 @@
                     "type": "string"
                 },
                 "parity": {
+                    "type": "integer"
+                },
+                "pulse": {
                     "type": "integer"
                 },
                 "spo_2": {

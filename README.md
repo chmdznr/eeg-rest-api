@@ -31,6 +31,7 @@ digunakan untuk menambahkan data bayi baru. Request body berupa JSON dengan form
   "parity": 0,
   "spo_2": 0,
   "thermal": 0,
+  "pulse": 0,
   "trial_code": "string"
 }
 ```
@@ -41,7 +42,8 @@ digunakan untuk menambahkan data bayi baru. Request body berupa JSON dengan form
 - `name` merupakan nama bayi. 
 - `parity` merupakan jumlah anak yang pernah lahir. 
 - `spo_2` merupakan data oksigenasi bayi. 
-- `thermal` merupakan data suhu bayi. 
+- `thermal` merupakan data suhu bayi.
+- `pulse` merupakan data detak jantung bayi.
 - `trial_code` merupakan kode uji coba.
 
 Untuk `trial_code` ini, harus sama dengan nanti yang ada di inputan pada endpoint `/api/newborn-eeg` karena inilah yang akan menghubungkan data bayi dengan data EEG bayi.

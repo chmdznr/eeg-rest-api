@@ -335,6 +335,9 @@ const docTemplate = `{
                 "parity": {
                     "type": "integer"
                 },
+                "pulse": {
+                    "type": "integer"
+                },
                 "spo_2": {
                     "type": "integer"
                 },
@@ -479,7 +482,7 @@ const docTemplate = `{
 
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = &swag.Spec{
-	Version:          "2024.06.05.1",
+	Version:          "2024.06.06.1",
 	Host:             "eeg-admin.msvc.app",
 	BasePath:         "/rest/api",
 	Schemes:          []string{},

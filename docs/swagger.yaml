@@ -24,6 +24,8 @@ definitions:
         type: string
       parity:
         type: integer
+      pulse:
+        type: integer
       spo_2:
         type: integer
       thermal:
@@ -125,7 +127,7 @@ info:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   title: API untuk data EEG
-  version: 2024.06.05.1
+  version: 2024.06.06.1
 paths:
   /newborn-cv:
     post:

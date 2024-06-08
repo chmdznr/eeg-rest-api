@@ -127,7 +127,7 @@ info:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   title: API untuk data EEG
-  version: 2024.06.08.1
+  version: 2024.06.08.2
 paths:
   /newborn-cv:
     post:

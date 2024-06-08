@@ -115,6 +115,14 @@ func CreateNewbornCv(c *fiber.Ctx) error {
 		})
 	}
 
+	// Set file permissions to -rw-r--r--
+	if err := os.Chmod(filePath, 0644); err != nil {
+		return c.Status(500).JSON(&reqresp.ErrorResponse{
+			Status:  "error",
+			Message: "Failed to set file permissions: " + err.Error(),
+		})
+	}
+
 	return c.Status(201).JSON(&reqresp.SuccessResponse{
 		Status:  "success",
 		Message: "Berhasil menambahkan data CV bayi baru",

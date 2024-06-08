@@ -6,6 +6,8 @@ import (
 	"be-eeg/models/reqresp"
 	"be-eeg/utils"
 	"github.com/gofiber/fiber/v2"
+	"mime/multipart"
+	"net/http"
 	"os"
 	"path/filepath"
 	"regexp"
@@ -15,6 +17,23 @@ import (
 
 	"github.com/google/uuid"
 )
+
+// detectContentType inspects the file content to determine the MIME type
+func detectContentType(file *multipart.FileHeader) (string, error) {
+	f, err := file.Open()
+	if err != nil {
+		return "", err
+	}
+	defer f.Close()
+
+	// Read the first 512 bytes to detect content type
+	buffer := make([]byte, 512)
+	if _, err := f.Read(buffer); err != nil {
+		return "", err
+	}
+
+	return http.DetectContentType(buffer), nil
+}
 
 // CreateNewbornCv creates a new record in the newborn_cvs table
 // @Summary Create a new record in the newborn_cvs table
@@ -49,6 +68,23 @@ func CreateNewbornCv(c *fiber.Ctx) error {
 		return c.Status(400).JSON(&reqresp.ErrorResponse{
 			Status:  "error",
 			Message: "Invalid data_type, must be either 'image' or 'video'",
+		})
+	}
+
+	// Validate file MIME type
+	fileType, err := detectContentType(file)
+	if err != nil {
+		return c.Status(400).JSON(&reqresp.ErrorResponse{
+			Status:  "error",
+			Message: "Failed to detect file type: " + err.Error(),
+		})
+	}
+
+	if (dataType == "image" && !strings.HasPrefix(fileType, "image/")) ||
+		(dataType == "video" && !strings.HasPrefix(fileType, "video/")) {
+		return c.Status(400).JSON(&reqresp.ErrorResponse{
+			Status:  "error",
+			Message: "Invalid file type for the given data_type",
 		})
 	}
 

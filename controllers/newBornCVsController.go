@@ -4,6 +4,7 @@ import (
 	"be-eeg/database"
 	"be-eeg/models"
 	"be-eeg/models/reqresp"
+	"be-eeg/utils"
 	"github.com/gofiber/fiber/v2"
 	"os"
 	"path/filepath"
@@ -65,26 +66,10 @@ func CreateNewbornCv(c *fiber.Ctx) error {
 		})
 	}
 
-	// Save file to a specified path named after the newbornCv ID
-	dir := filepath.Join(os.Getenv("BASE_UPLOAD_FOLDER"), strconv.Itoa(int(newbornCv.ID)))
-	if err := os.MkdirAll(dir, os.ModePerm); err != nil {
-		return c.Status(500).JSON(&reqresp.ErrorResponse{
-			Status:  "error",
-			Message: "Failed to create directory: " + err.Error(),
-		})
-	}
-
-	fileName := uuid.New().String() + filepath.Ext(file.Filename)
-	filePath := filepath.Join(dir, fileName)
-	if err := c.SaveFile(file, filePath); err != nil {
-		return c.Status(500).JSON(&reqresp.ErrorResponse{
-			Status:  "error",
-			Message: "Failed to save file: " + err.Error(),
-		})
-	}
-
 	// Clean the file name to be used in the media table
 	cleanName := regexp.MustCompile(`[^a-zA-Z0-9]+`).ReplaceAllString(strings.TrimSuffix(file.Filename, filepath.Ext(file.Filename)), "_")
+	name := utils.RandString(13) + "_" + cleanName
+	fileName := name + filepath.Ext(file.Filename)
 
 	// Create Media record
 	media := models.Media{
@@ -92,7 +77,7 @@ func CreateNewbornCv(c *fiber.Ctx) error {
 		ModelID:              newbornCv.ID,
 		UUID:                 uuid.New().String(),
 		CollectionName:       "file",
-		Name:                 cleanName,
+		Name:                 name,
 		FileName:             fileName,
 		MimeType:             file.Header.Get("Content-Type"),
 		Disk:                 "public",
@@ -110,6 +95,23 @@ func CreateNewbornCv(c *fiber.Ctx) error {
 		return c.Status(500).JSON(&reqresp.ErrorResponse{
 			Status:  "error",
 			Message: "Failed to create media record: " + err.Error(),
+		})
+	}
+
+	// Save file to a specified path named after the media ID
+	dir := filepath.Join(os.Getenv("BASE_UPLOAD_FOLDER"), strconv.Itoa(int(media.ID)))
+	if err := os.MkdirAll(dir, os.ModePerm); err != nil {
+		return c.Status(500).JSON(&reqresp.ErrorResponse{
+			Status:  "error",
+			Message: "Failed to create directory: " + err.Error(),
+		})
+	}
+
+	filePath := filepath.Join(dir, fileName)
+	if err := c.SaveFile(file, filePath); err != nil {
+		return c.Status(500).JSON(&reqresp.ErrorResponse{
+			Status:  "error",
+			Message: "Failed to save file: " + err.Error(),
 		})
 	}
 

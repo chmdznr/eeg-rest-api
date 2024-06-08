@@ -21,7 +21,7 @@ import (
 )
 
 // @title API untuk data EEG
-// @version 2024.06.06.1
+// @version 2024.06.08.1
 // @description API untuk Data EEG
 
 // @contact.name Pai Joe
